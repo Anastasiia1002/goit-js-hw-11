@@ -40,7 +40,6 @@ export function createCard(data, galleryBox, one) {
       }
     )
     .join('');
-  console.dir(gallery);
   if (one === 'on') {
     gallery.innerHTML = markup;
   } else if (one === 'off') {
