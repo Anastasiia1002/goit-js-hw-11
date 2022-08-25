@@ -8,7 +8,7 @@ export const options = {
   method: 'GET',
   params: {
     page: 1,
-    per_page: 10,
+    per_page: 40,
     q: '',
     image_type: 'photo',
     orientation: 'horizontal',
