@@ -17,37 +17,21 @@ async function onClickSubmit(event) {
   gallery.innerHTML = '';
   nextBtn.hidden = true;
   event.preventDefault();
-  //const data = await fetchImage().catch(error => console.log(error));
   options.params.q = await inputForm.value;
   options.params.page = 1;
-  if (!options.params.q) {
-    nextBtn.hidden = true;
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-    ///  не правильна
-  } else if (options.params.q.length > 0) {
-    fetchImage()
-      .then(data => createCard(data, gallery, 'on'))
-      .catch(error => console.log(error));
+  const data = await fetchImage().catch(error => console.log(error));
+
+  if (options.params.q.length > 0 && data.hits.length > 0) {
+    createCard(data, gallery, 'on');
     nextBtn.hidden = false;
-    console.log(1);
-    //костиль 10 на 40
   } else {
     nextBtn.hidden = true;
-
-    Notiflix.Notify.failure(
-      'Ooops, there are no images matching your search query. Please try again.'
-    );
-    console.log(2);
+    let texError =
+      options.params.q.length === 0
+        ? 'Please, enter the data for the request!'
+        : 'Ooops, there are no images matching your search query. Please try again.';
+    Notiflix.Notify.failure(texError);
   }
-
-  // SimpleLight();
-
-  // new SimpleLightbox('.gallery a', {
-  //   captionsDelay: 250,
-  // });
-  // photoCard.addEventListener('click', onClickCard);
 }
 nextBtn.addEventListener('click', onBtnNextClick);
 
